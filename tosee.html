@@ -1,0 +1,62 @@
+
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<title>Coqnitics</title>
+		<link rel="icon" type="image/ico/png" href="../static/img/favicon.ico">
+		<link rel = "stylesheet" type="text/css" href="../static/css/bootstrap_css.css">
+		<link rel = "stylesheet" type="text/css" href="../static/css/fileselect_css.css">
+		<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.3.1.min.js"></script>
+		<script src = "../static/lpr/upload.min.js"></script>
+	</head>
+
+	<body>
+		<div class = "wrapper">
+			<div class = "title">
+				<img id="logo" src="../static/img/logo.png" alt="Coqnitics" height="120" width="230">
+			</div>
+			<h1 id="LPR">License Plate Recognition API Demo</h1>
+			<div>
+				<p class="parag">Coqnitics’s License Plate Recognition API is an online RESTful API to detect license plate. Just upload an image, and we will do the rest for you!</p>
+				<p class="parag">Try our demo below, or refer to <a href="https://recoqnitics.com/guide/lpr-api">recoqnitics.com/guide/lpr-api </a> for our official documentaion.</p>
+			</div>
+			<div method="post" enctype="multipart/form-data" class ="upload-form">
+
+				<div class="form-content-area" >
+
+					<div class='upload'>
+						<h2 id="uploadSide">Upload file here</h2>
+						<div class="upload-inner">
+							<label class="custom-file-upload">
+								Choose File
+								<input type="file" id="upload-area" onchange="readFile(this);"  value="Upload"/>
+							</label>
+							<label class="custom-url-upload">
+									URL:
+								<input type="text"  id="url-holder"/>
+								<button class="url-upload-button" type="submit" onclick="readURLText()" value="Submit">Submit</button>
+							</label>
+							<img id='uploadImg' src="../static/img/upload.png">
+							<canvas id="boxDrawing" width="360px" height="300px" onchange="readURL(this);"></canvas>
+							<h3>Click on sample images to test.</h3>
+							<img id="sample1" src="https://s3-ap-southeast-1.amazonaws.com/lprimg/sample1.jpg" alt="sample1" crossorigin="anonymous" width="100px" height="100px" onclick="passToInput(this);">
+							<img id="sample2" src="https://s3-ap-southeast-1.amazonaws.com/lprimg/sample2.jpg" alt="sample2" crossorigin="anonymous" width="100px" height="100px" onclick="passToInput(this);">
+						</div>
+					</div>
+					<div class="responseArea">
+						<h2 id="result">Result</h2>
+						<div id="loader"></div>
+						<div id="content">
+							<pre><code id="response" ></code></pre>
+						</div>
+					</div>
+				</div>
+				<div class="bottomBeauty" /></div>
+			</div>
+			<div class="footer">
+				<p id='filefooter'>Copyright &copy; Coqnitics Sdn Bhd <script>document.write(new Date().getFullYear());</script></p>
+			</div>
+		</div>
+	</body>
+</html>

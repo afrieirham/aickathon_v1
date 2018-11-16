@@ -1,0 +1,14 @@
+{
+  "name": "aickathon",
+  "version": "1.0.0",
+  "description": "the first hackathon",
+  "main": "index.js",
+  "scripts": {
+    "test": "console.log('Hello World');"
+  },
+  "author": "nivleM",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}
