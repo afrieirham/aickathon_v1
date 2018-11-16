@@ -9,7 +9,7 @@ app.use(express.static('assets'));
 
 
 app.get('/', (req, res) => {
-    
+
 });
 
 app.listen(port, () => console.log(`Server side working`));
