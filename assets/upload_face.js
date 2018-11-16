@@ -1,6 +1,6 @@
 function uploadPhoto() {
 
-    console.log('it works')
+    console.log('Get face')
 
     var strDisplay = '';
     var API_URL = 'https://face.recoqnitics.com/analyze'
