@@ -1,6 +1,6 @@
 function uploadPhoto() {
 
-    console.log('it works')
+    console.log('Getting car plate')
 
     var strDisplay = '';
     var API_URL = 'https://lpr.recoqnitics.com/detect'

@@ -1,15 +1,20 @@
 const express = require('express');
 const app = express();
-var path = require('path');
 const port = 3000;
-let options = {};
+var mysql = require('mysql');
 
-// express.static(root, [options]);
+
+var con = mysql.createConnection({
+    host: "localhost",
+    user: "root",
+    password: "password"
+  });
+  
+  con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+  });
+  
 app.use(express.static('assets'));
-
-
-app.get('/', (req, res) => {
-
-});
 
 app.listen(port, () => console.log(`Server side working`));
