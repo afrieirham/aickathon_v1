@@ -10,6 +10,8 @@ function uploadPhoto() {
     formData.append("access_key", ACCESS_KEY);
     formData.append("secret_key", SECRET_KEY);
 
+
+
     $.ajax({
         url: API_URL,
         type: "POST",
