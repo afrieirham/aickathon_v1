@@ -1,5 +1,5 @@
 var threshold = 0.8;
-
+//please send help
 var emotionList = [];
 var emotionAnal = [0, 0, 0, 0, 0, 0, 0];
 var emotionCount = 0;
