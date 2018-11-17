@@ -51,8 +51,6 @@ function getEmotion(strDisplay) {
         console.log('Entries = ' + entries);
         i++;
     }
-
-    console.log(emotionAnal)
 }
 
 //get rid of the comma behind the numbers
@@ -67,15 +65,22 @@ function removeComma(value) {
     return output;
 }
 
+
+function somethingHere(array) {
+    for(i=0; i<array.length; i++) {
+        calEmotions(array[i]);
+    }
+}
+
 //get the highest value of each array 
 //if more than threshold (0.8) the emotion of the value will be 1 
-function getHighest(array) {
+function calEmotions(array) {
     //parseFloat(str)
-    let highest = array[0];
+    let highest = parseFloat(array[0]);
     count = 0;
     for (i = 1; i < array.length; i++) {
-        if (highest < array[i]) {
-            highest = array[i];
+        if (highest < parseFloat(array[i])) {
+            highest = parseFloat(array[i]);
             count = i;
         }
     }
@@ -132,8 +137,10 @@ function uploadPhoto() {
             document.getElementById('response').innerHTML = strDisplay;
 
             getEmotion(strDisplay);
-
-            document.getElementById('dataAnalysis').innerHTML = printArray(emotionList);
+            somethingHere(emotionList);
+            tableStuff();
+            console.log(emotionAnal);
+            // document.getElementById('dataAnalysis').innerHTML = printArray(emotionList);
         },
         error: function (jqXHR, textStatus, errorMessage) {
             document.getElementById("loader").style.display = "none";
@@ -143,36 +150,35 @@ function uploadPhoto() {
 }
 
 // Table stuff
-// TODO
-// Put emotionAnal to respective value
 function tableStuff(){
+    clearTable();
     var items = [{
         Emotion: "Angry",
-        Value: "80"
+        Value: emotionAnal[0]
       },
       {
         Emotion: "Digust",
-        Value: "50"
+        Value: emotionAnal[1]
       },
       {
         Emotion: "Fear",
-        Value: "20"
+        Value: emotionAnal[2]
       },
       {
         Emotion: "Happy",
-        Value: "250"
+        Value: emotionAnal[3]
       },
       {
         Emotion: "Sad",
-        Value: "250"
+        Value: emotionAnal[4]
       },
       {
         Emotion: "Surprised",
-        Value: "250"
+        Value: emotionAnal[5]
       },
       {
         Emotion: "Neutral",
-        Value: "250"
+        Value: emotionAnal[6]
       },
     ];
     
@@ -182,5 +188,16 @@ function tableStuff(){
     });
     
     console.log(rows)
+    $(rows).appendTo("#tableList tbody");
+}
+
+function clearTable(){
+    
+    var rows = "";
+    // $.each(items, function() {
+    //   rows += "<tr><td>" + this.Emotion + "</td><td> " + this.Value + "</td>";
+    // });
+    
+    // console.log(rows)
     $(rows).appendTo("#tableList tbody");
 }
