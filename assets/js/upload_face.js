@@ -1,4 +1,3 @@
-
 var threshold = 0.8;
 
 var emotionList = [];
@@ -8,7 +7,7 @@ var entries = 0;
 
 //changes JSON.stringify to array with its individual emotion
 function getEmotion(strDisplay) {
-    var emotion = [null,null, null, null, null, null, null];
+    var emotion = [null, null, null, null, null, null, null];
     var strSplit = strDisplay.split(' ');
     var i = 0;
 
@@ -52,6 +51,8 @@ function getEmotion(strDisplay) {
         console.log('Entries = ' + entries);
         i++;
     }
+
+    console.log(emotionAnal)
 }
 
 //get rid of the comma behind the numbers
@@ -72,14 +73,14 @@ function getHighest(array) {
     //parseFloat(str)
     let highest = array[0];
     count = 0;
-    for(i=1; i<array.length; i++) {
-        if(highest<array[i]) {
+    for (i = 1; i < array.length; i++) {
+        if (highest < array[i]) {
             highest = array[i];
             count = i;
         }
     }
 
-    if(highest>threshold)
+    if (highest > threshold)
         emotionAnal[count]++;
 }
 
@@ -89,9 +90,9 @@ function getHighest(array) {
 function printArray(array) {
     var str = '';
     let arraylist = null;
-    for(i=0; i<array.length; i++) {
+    for (i = 0; i < array.length; i++) {
         arraylist = array[i];
-        for(j=0; j<arraylist.length; j++) {
+        for (j = 0; j < arraylist.length; j++) {
             str = str + arraylist[j] + '\t';
         }
         str = str + '\n';
@@ -129,9 +130,9 @@ function uploadPhoto() {
             responseJSON = response
             console.log(response)
             document.getElementById('response').innerHTML = strDisplay;
-            
+
             getEmotion(strDisplay);
-            
+
             document.getElementById('dataAnalysis').innerHTML = printArray(emotionList);
         },
         error: function (jqXHR, textStatus, errorMessage) {
@@ -139,4 +140,47 @@ function uploadPhoto() {
             document.getElementById('response').innerHTML = errorMessage
         }
     })
+}
+
+// Table stuff
+// TODO
+// Put emotionAnal to respective value
+function tableStuff(){
+    var items = [{
+        Emotion: "Angry",
+        Value: "80"
+      },
+      {
+        Emotion: "Digust",
+        Value: "50"
+      },
+      {
+        Emotion: "Fear",
+        Value: "20"
+      },
+      {
+        Emotion: "Happy",
+        Value: "250"
+      },
+      {
+        Emotion: "Sad",
+        Value: "250"
+      },
+      {
+        Emotion: "Surprised",
+        Value: "250"
+      },
+      {
+        Emotion: "Neutral",
+        Value: "250"
+      },
+    ];
+    
+    var rows = "";
+    $.each(items, function() {
+      rows += "<tr><td>" + this.Emotion + "</td><td> " + this.Value + "</td>";
+    });
+    
+    console.log(rows)
+    $(rows).appendTo("#tableList tbody");
 }
