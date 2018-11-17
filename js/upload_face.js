@@ -73,7 +73,7 @@ function calEmotions() {
     for (i = 0; i < emotionList.length; i++) {
         var count = 0;
         array = emotionList[i];
-
+        
         let highest = parseFloat(array[0]);
 
         for (j = 0; j < array.length; j++) {
@@ -137,8 +137,7 @@ function uploadPhoto() {
             emotionList = [];
             getEmotion(strDisplay);
             calEmotions();
-            // tableStuff();
-            saveData();
+            tableStuff();
             console.log(emotionAnal);
             // document.getElementById('dataAnalysis').innerHTML = printArray(emotionList);
         },
@@ -150,9 +149,8 @@ function uploadPhoto() {
 }
 
 // Table stuff
-function saveData() {
-    console.log("Saving Data...")
-    console.log(entries)
+function tableStuff() {
+    clearTable();
     var items = [{
             Emotion: "Angry",
             Value: emotionAnal[0]
@@ -181,30 +179,24 @@ function saveData() {
             Emotion: "Neutral",
             Value: emotionAnal[6]
         },
-        {
-            Emotion: "TOTAL:",
-            Value: entries
-        }
     ];
 
-    function loadTable(tableId, fields, data) {
-        console.log("Loading table..")
-        var rows = '';
-        $.each(data, function (index, item) {
-            var row = '<tr">';
-            $.each(fields, function (index, field) {
-                row += '<td>' + item[field + ''] + '</td>';
-            });
-            rows += row + '<tr>';
-        });
-        
-        $('#' + tableId + ' tbody').html(rows);
-    }
-
-    loadTable('tableList', ['Emotion', 'Value'], items);
-
-    $('#btn-update').click(function (e) {
-        loadTable('tableList', ['Emotion', 'Value'], items);
+    var rows = "";
+    $.each(items, function () {
+        rows += "<tr><td>" + this.Emotion + "</td><td> " + this.Value + "</td>";
     });
 
+    console.log(rows)
+    $(rows).appendTo("#tableList tbody");
+}
+
+function clearTable() {
+
+    var rows = "";
+    // $.each(items, function() {
+    //   rows += "<tr><td>" + this.Emotion + "</td><td> " + this.Value + "</td>";
+    // });
+
+    // console.log(rows)
+    $(rows).appendTo("#tableList tbody");
 }
