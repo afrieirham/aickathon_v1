@@ -68,10 +68,11 @@ function uploadPhoto() {
     var API_URL = 'https://face.recoqnitics.com/analyze'
     var ACCESS_KEY = 'cc7d67f2adb06edcb419';
     var SECRET_KEY = 'e10f180f2fdf99ec9eae2c92c4e3bc8c9373198f';
-    var formData = new FormData(document.getElementById("#faceInput"))
+    var formData = new FormData(document.getElementById("faceInput"))
     formData.append("access_key", ACCESS_KEY);
     formData.append("secret_key", SECRET_KEY);
 
+    console.log("Before ajax")
     $.ajax({
         url: API_URL,
         type: "POST",
@@ -79,6 +80,7 @@ function uploadPhoto() {
         processData: !1,
         contentType: !1,
         success: function (response) {
+            console.log("After ajax")
             document.getElementById("loader").style.display = "none";
             document.getElementById('response').innerHTML = "";
             responseJSONstr = JSON.stringify(response, null, 5);

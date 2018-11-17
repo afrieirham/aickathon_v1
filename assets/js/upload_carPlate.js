@@ -6,7 +6,7 @@ function uploadPhoto() {
     var API_URL = 'https://lpr.recoqnitics.com/detect'
     var ACCESS_KEY = 'cc7d67f2adb06edcb419';
     var SECRET_KEY = 'e10f180f2fdf99ec9eae2c92c4e3bc8c9373198f';
-    var formData = new FormData(document.getElementById("#carInput"))
+    var formData = new FormData(document.getElementById("carInput"))
     formData.append("access_key", ACCESS_KEY);
     formData.append("secret_key", SECRET_KEY);
 
