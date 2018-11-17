@@ -1,3 +1,5 @@
+// const express = require('express');
+
 function getEmotion(strDisplay) {
     var angry = '';
     var disgust = '';
@@ -44,6 +46,7 @@ function getEmotion(strDisplay) {
         }
         i++;
     }
+    
 }
 
 function removeComma(value) {
@@ -69,6 +72,7 @@ function uploadPhoto() {
     formData.append("access_key", ACCESS_KEY);
     formData.append("secret_key", SECRET_KEY);
 
+    console.log("Before ajax")
     $.ajax({
         url: API_URL,
         type: "POST",
@@ -76,6 +80,7 @@ function uploadPhoto() {
         processData: !1,
         contentType: !1,
         success: function (response) {
+            console.log("After ajax")
             document.getElementById("loader").style.display = "none";
             document.getElementById('response').innerHTML = "";
             responseJSONstr = JSON.stringify(response, null, 5);
