@@ -1,69 +1,60 @@
-var angry = '';
-var disgust = '';
-var fear = '';
-var happy = '';
-var sad = '';
-var surprise = '';
-var nuetral = '';
+
+var threshold = 0.8;
+
+var emotionList = [];
+var emotionAnal = [0, 0, 0, 0, 0, 0, 0];
+var emotionCount = 0;
 var entries = 0;
-var emotion = [angry, disgust, fear, happy, sad, surprise, nuetral];
 
+//changes JSON.stringify to array with its individual emotion
 function getEmotion(strDisplay) {
-
-
-
+    var emotion = [null,null, null, null, null, null, null];
     var strSplit = strDisplay.split(' ');
     var i = 0;
-    var count = 0;
 
     console.log('Person');
     while (i != strSplit.length) {
         // console.log(strSplit[i]);
         switch (strSplit[i]) {
             case '"angry":':
-                angry = removeComma(strSplit[i + 1]);
-                console.log('angry = ' + angry);
-                count++;
+                ++entries;
+                emotion[emotionCount++] = removeComma(strSplit[i + 1]);
+                console.log('emotionAngry = ' + emotion[0]);
                 break;
             case '"disgust":':
-                disgust = removeComma(strSplit[i + 1]);
-                console.log('disgust = ' + disgust);
-                count++;
+                emotion[emotionCount++] = removeComma(strSplit[i + 1]);
+                console.log('emotionDisgust = ' + emotion[1]);
                 break;
             case '"fear":':
-                fear = removeComma(strSplit[i + 1]);
-                console.log('fear = ' + fear);
-                count++;
+                emotion[emotionCount++] = removeComma(strSplit[i + 1]);
+                console.log('emotionFear = ' + emotion[2]);
                 break;
             case '"happy":':
-                happy = removeComma(strSplit[i + 1]);
-                console.log('happy = ' + happy);
-                count++;
+                emotion[emotionCount++] = removeComma(strSplit[i + 1]);
+                console.log('emotionHappy = ' + emotion[3]);
                 break;
             case '"sad":':
-                sad = removeComma(strSplit[i + 1]);
-                console.log('sad = ' + sad);
-                count++;
+                emotion[emotionCount++] = removeComma(strSplit[i + 1]);
+                console.log('emotionSad = ' + emotion[4]);
                 break;
             case '"surprise":':
-                surprise = removeComma(strSplit[i + 1]);
-                console.log('surprise = ' + surprise);
-                count++;
+                emotion[emotionCount++] = removeComma(strSplit[i + 1]);
+                console.log('emotionSurprise = ' + emotion[5]);
                 break;
             case '"neutral":':
-                nuetral = removeComma(strSplit[i + 1]);
-                console.log('nuetral = ' + nuetral);
-                count++;
+                emotion[emotionCount++] = removeComma(strSplit[i + 1]);
+                console.log('emotionNuetral = ' + emotion[6]);
+                emotionCount = 0;
+                let cloneArray = JSON.parse(JSON.stringify(emotion));
+                emotionList.push(cloneArray);
                 break;
         }
-        if (count == 7) {
-            count = 0;
-
-        }
+        console.log('Entries = ' + entries);
         i++;
     }
 }
 
+//get rid of the comma behind the numbers
 function removeComma(value) {
     var valueSplit = value.split('');
     var output = '';
@@ -75,6 +66,41 @@ function removeComma(value) {
     return output;
 }
 
+//get the highest value of each array 
+//if more than threshold (0.8) the emotion of the value will be 1 
+function getHighest(array) {
+    //parseFloat(str)
+    let highest = array[0];
+    count = 0;
+    for(i=1; i<array.length; i++) {
+        if(highest<array[i]) {
+            highest = array[i];
+            count = i;
+        }
+    }
+
+    if(highest>threshold)
+        emotionAnal[count]++;
+}
+
+
+//function to print array => emotionList
+//just for testing. No actual use
+function printArray(array) {
+    var str = '';
+    let arraylist = null;
+    for(i=0; i<array.length; i++) {
+        arraylist = array[i];
+        for(j=0; j<arraylist.length; j++) {
+            str = str + arraylist[j] + '\t';
+        }
+        str = str + '\n';
+    }
+    return str;
+}
+
+//get picture and post to API
+//starts other functions
 function uploadPhoto() {
 
     console.log('Get face')
@@ -103,9 +129,10 @@ function uploadPhoto() {
             responseJSON = response
             console.log(response)
             document.getElementById('response').innerHTML = strDisplay;
-            document.getElementById('dataAnalysis').innerHTML = emotion.toString();
             
             getEmotion(strDisplay);
+            
+            document.getElementById('dataAnalysis').innerHTML = printArray(emotionList);
         },
         error: function (jqXHR, textStatus, errorMessage) {
             document.getElementById("loader").style.display = "none";
