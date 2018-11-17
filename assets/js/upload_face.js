@@ -1,15 +1,17 @@
-// const express = require('express');
-var List = require("collections/list");
+var angry = '';
+var disgust = '';
+var fear = '';
+var happy = '';
+var sad = '';
+var surprise = '';
+var nuetral = '';
 var entries = 0;
+var emotion = [angry, disgust, fear, happy, sad, surprise, nuetral];
 
 function getEmotion(strDisplay) {
-    var angry = '';
-    var disgust = '';
-    var fear = '';
-    var happy = '';
-    var sad = '';
-    var surprise = '';
-    var nuetral = '';
+
+
+
     var strSplit = strDisplay.split(' ');
     var i = 0;
     var count = 0;
@@ -54,7 +56,7 @@ function getEmotion(strDisplay) {
                 count++;
                 break;
         }
-        if(count == 7) {
+        if (count == 7) {
             count = 0;
 
         }
@@ -101,6 +103,8 @@ function uploadPhoto() {
             responseJSON = response
             console.log(response)
             document.getElementById('response').innerHTML = strDisplay;
+            document.getElementById('dataAnalysis').innerHTML = emotion.toString();
+            
             getEmotion(strDisplay);
         },
         error: function (jqXHR, textStatus, errorMessage) {
