@@ -65,28 +65,26 @@ function removeComma(value) {
     return output;
 }
 
-
-function somethingHere(array) {
-    for(i=0; i<array.length; i++) {
-        calEmotions(array[i]);
-    }
-}
-
 //get the highest value of each array 
 //if more than threshold (0.8) the emotion of the value will be 1 
-function calEmotions(array) {
+function calEmotions() {
     //parseFloat(str)
-    let highest = parseFloat(array[0]);
-    count = 0;
-    for (i = 1; i < array.length; i++) {
-        if (highest < parseFloat(array[i])) {
-            highest = parseFloat(array[i]);
-            count = i;
-        }
-    }
+    let array = null;
+    for (i = 0; i < emotionList.length; i++) {
+        var count = 0;
+        array = emotionList[i];
+        
+        let highest = parseFloat(array[0]);
 
-    if (highest > threshold)
+        for (j = 0; j < array.length; j++) {
+            if (highest < parseFloat(array[j])) {
+                count = j;
+                highest = parseFloat(array[j]);
+            }
+        }
+
         emotionAnal[count]++;
+    }
 }
 
 
@@ -136,8 +134,9 @@ function uploadPhoto() {
             console.log(response)
             document.getElementById('response').innerHTML = strDisplay;
 
+            emotionList = [];
             getEmotion(strDisplay);
-            somethingHere(emotionList);
+            calEmotions();
             tableStuff();
             console.log(emotionAnal);
             // document.getElementById('dataAnalysis').innerHTML = printArray(emotionList);
@@ -150,54 +149,54 @@ function uploadPhoto() {
 }
 
 // Table stuff
-function tableStuff(){
+function tableStuff() {
     clearTable();
     var items = [{
-        Emotion: "Angry",
-        Value: emotionAnal[0]
-      },
-      {
-        Emotion: "Digust",
-        Value: emotionAnal[1]
-      },
-      {
-        Emotion: "Fear",
-        Value: emotionAnal[2]
-      },
-      {
-        Emotion: "Happy",
-        Value: emotionAnal[3]
-      },
-      {
-        Emotion: "Sad",
-        Value: emotionAnal[4]
-      },
-      {
-        Emotion: "Surprised",
-        Value: emotionAnal[5]
-      },
-      {
-        Emotion: "Neutral",
-        Value: emotionAnal[6]
-      },
+            Emotion: "Angry",
+            Value: emotionAnal[0]
+        },
+        {
+            Emotion: "Digust",
+            Value: emotionAnal[1]
+        },
+        {
+            Emotion: "Fear",
+            Value: emotionAnal[2]
+        },
+        {
+            Emotion: "Happy",
+            Value: emotionAnal[3]
+        },
+        {
+            Emotion: "Sad",
+            Value: emotionAnal[4]
+        },
+        {
+            Emotion: "Surprised",
+            Value: emotionAnal[5]
+        },
+        {
+            Emotion: "Neutral",
+            Value: emotionAnal[6]
+        },
     ];
-    
+
     var rows = "";
-    $.each(items, function() {
-      rows += "<tr><td>" + this.Emotion + "</td><td> " + this.Value + "</td>";
+    $.each(items, function () {
+        rows += "<tr><td>" + this.Emotion + "</td><td> " + this.Value + "</td>";
     });
-    
+
     console.log(rows)
     $(rows).appendTo("#tableList tbody");
 }
 
-function clearTable(){
-    
+function clearTable() {
+
     var rows = "";
     // $.each(items, function() {
     //   rows += "<tr><td>" + this.Emotion + "</td><td> " + this.Value + "</td>";
     // });
-    
+
     // console.log(rows)
     $(rows).appendTo("#tableList tbody");
 }
