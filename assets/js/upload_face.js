@@ -1,4 +1,6 @@
 // const express = require('express');
+var List = require("collections/list");
+var entries = 0;
 
 function getEmotion(strDisplay) {
     var angry = '';
@@ -10,6 +12,7 @@ function getEmotion(strDisplay) {
     var nuetral = '';
     var strSplit = strDisplay.split(' ');
     var i = 0;
+    var count = 0;
 
     console.log('Person');
     while (i != strSplit.length) {
@@ -18,35 +21,45 @@ function getEmotion(strDisplay) {
             case '"angry":':
                 angry = removeComma(strSplit[i + 1]);
                 console.log('angry = ' + angry);
+                count++;
                 break;
             case '"disgust":':
                 disgust = removeComma(strSplit[i + 1]);
                 console.log('disgust = ' + disgust);
+                count++;
                 break;
             case '"fear":':
                 fear = removeComma(strSplit[i + 1]);
                 console.log('fear = ' + fear);
+                count++;
                 break;
             case '"happy":':
                 happy = removeComma(strSplit[i + 1]);
                 console.log('happy = ' + happy);
+                count++;
                 break;
             case '"sad":':
                 sad = removeComma(strSplit[i + 1]);
                 console.log('sad = ' + sad);
+                count++;
                 break;
             case '"surprise":':
                 surprise = removeComma(strSplit[i + 1]);
                 console.log('surprise = ' + surprise);
+                count++;
                 break;
             case '"neutral":':
                 nuetral = removeComma(strSplit[i + 1]);
                 console.log('nuetral = ' + nuetral);
+                count++;
                 break;
+        }
+        if(count == 7) {
+            count = 0;
+
         }
         i++;
     }
-    
 }
 
 function removeComma(value) {
